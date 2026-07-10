@@ -2,7 +2,7 @@
 
 Tři praktické projekty z kurzu Deep Learning: obrazová klasifikace pomocí CNN (s nasazenou live appkou), vlastní transformer natrénovaný na českých zákonech, a fine-tuning Gemma 3 na strukturovaný výstup.
 
-> **Poznámka k autorství:** Šlo o skupinová zadání v rámci kurzu (Data Science Practicum). U všech tří projektů jsem byl hlavním přispěvatelem na implementaci a experimentech popsaných níže.
+
 
 ---
 
@@ -57,5 +57,12 @@ Fine-tuning modelu Gemma 3 (přes [unsloth](https://github.com/unslothai/unsloth
 ## Tech stack
 Python · PyTorch · fastai · Gradio · Hugging Face Spaces · unsloth · OpenAI API
 
----
-*Skupinová zadání v rámci kurzu Deep Learning / Data Science Practicum.*
+## Autorství a kontext
+
+Skupinová zadání v rámci kurzu **PřF:M7DataSP – Praktikum z pokročilé datové vědy** (2025), přednášející [Mgr. Petr Šimeček, MSc., Ph.D.](https://is.muni.cz/auth/osoba/244334), na základě course repozitáře [simecek/dspracticum2024](https://github.com/simecek/dspracticum2024) a sdíleného týmového repozitáře [LuciaKajanova/dspracticum25_flowers_team](https://github.com/LuciaKajanova/dspracticum25_flowers_team).
+
+Spolupráce s Lucia Kajanová a Eva Kopřiva; byl jsem hlavním přispěvatelem na implementaci.
+
+## Licence
+
+MIT — viz [LICENSE](./LICENSE)
