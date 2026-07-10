@@ -1,49 +1,47 @@
-# 🧠 Deep Learning Projects
+# Deep Learning Projects
 
 Tři praktické projekty z kurzu Deep Learning: obrazová klasifikace pomocí CNN (s nasazenou live appkou), vlastní transformer natrénovaný na českých zákonech, a fine-tuning Gemma 3 na strukturovaný výstup.
 
+## 1. CNN klasifikátor obrázků a živá appka
 
-
----
-
-## 🌻 1. CNN klasifikátor obrázků + živá appka
-
-**[🤗 Vyzkoušet živé demo](https://huggingface.co/spaces/MartinH-01/Flowers)**
+[Vyzkoušet živé demo](DOPLŇ_ODKAZ_NA_TVŮJ_HUGGING_FACE_SPACE)
 
 Konvoluční neuronová síť (fastai) klasifikující obrázky (květiny / Fashion-MNIST). Model je nasazený jako veřejně dostupná Gradio appka na Hugging Face Spaces — nahraješ obrázek, appka vrátí predikci s pravděpodobnostmi jednotlivých tříd.
 
 - `app.py` — zdrojový kód Gradio appky (stejný kód, jaký běží na HF Spaces)
 - `notebooks/` — trénování a experimenty (Fashion-MNIST baseline, klasifikace květin, finální model appky)
 
-*Model (`model_cleansplit.pkl`, ~50 MB) není součástí repa — appka běží nasazená přímo na HF Spaces, kde je model uložený.*
+Model (`model_cleansplit.pkl`, ~50 MB) není součástí repa — appka běží nasazená přímo na HF Spaces, kde je model uložený.
 
-## ⚖️ 2. Vlastní transformer — tokenizace a generování na českých zákonech
+## 2. Vlastní transformer — tokenizace a generování na českých zákonech
 
 Implementace GPT-style transformeru (vycházející z [Karpathyho "Let's build GPT" tutoriálu](https://github.com/karpathy/ng-video-lecture)) natrénovaného na korpusu českých zákonů, s experimenty nad tokenizací a velikostí modelu.
 
-**Klíčová zjištění** (viz [shrnuti-vysledky.txt](./2-transformer-tokenization/shrnuti-vysledky.txt) pro plný rozbor):
-- Vyzkoušeny dvě úrovně tokenizace (jednoduchá vs. vylepšená), slovník ~200k subword tokenů
-- Dosažené hodnoty: train loss ≈ 2.4, val loss ≈ 3.1 — kapacita jednoduchého transformeru byla na tomto datasetu prakticky vyčerpaná (další zvyšování počtu parametrů přestávalo znatelně zlepšovat výsledky)
-- Ukázky generovaného textu na prázdný vs. konkrétní prompt v [`example-outputs/`](./2-transformer-tokenization/example-outputs/) — model věrně napodobuje styl zákonů, i když obsahově "halucinuje"
+Klíčová zjištění (viz [shrnuti-vysledky.txt](./2-transformer-tokenization/shrnuti-vysledky.txt) pro plný rozbor):
+
+- Vyzkoušeny dvě úrovně tokenizace (jednoduchá vs. vylepšená), slovník přibližně 200k subword tokenů
+- Dosažené hodnoty: train loss približně 2.4, val loss približně 3.1 — kapacita jednoduchého transformeru byla na tomto datasetu prakticky vyčerpaná
+- Ukázky generovaného textu na prázdný vs. konkrétní prompt v [example-outputs/](./2-transformer-tokenization/example-outputs/) — model věrně napodobuje styl zákonů, i když obsahově "halucinuje"
 
 ```
 2-transformer-tokenization/
-├── notebooks/           # tokenizace (2 varianty) + příprava datasetu ze zákonů
+├── notebooks/            # tokenizace (2 varianty) + příprava datasetu ze zákonů
 ├── example-outputs/      # ukázky generovaného textu
-├── merged_zakony.md       # zdrojový korpus (sloučené texty zákonů)
-└── shrnuti-vysledky.txt   # shrnutí experimentů a závěrů
+├── merged_zakony.md      # zdrojový korpus (sloučené texty zákonů)
+└── shrnuti-vysledky.txt  # shrnutí experimentů a závěrů
 ```
 
-> Notebook `SimpleTokenizationMergedZakony.ipynb` počítá s prostředím Google Colab (načítá data z `/content/`). Pro lokální spuštění je potřeba cestu upravit.
+Notebook `SimpleTokenizationMergedZakony.ipynb` počítá s prostředím Google Colab (načítá data z `/content/`). Pro lokální spuštění je potřeba cestu upravit.
 
-## 🎵 3. Fine-tuning Gemma 3 — strukturovaná analýza textu
+## 3. Fine-tuning Gemma 3 — strukturovaná analýza textu
 
-Fine-tuning modelu Gemma 3 (přes [unsloth](https://github.com/unslothai/unsloth)) na úkol strukturované analýzy textu písňových textů (alternativní název, shrnutí, hodnocení nálady) — dataset 200 textů od českých interpretů (Karel Kryl, Karel Plíhal, Ivan Mládek, Svěrák & Uhlíř).
+Fine-tuning modelu Gemma 3 (přes [unsloth](https://github.com/unslothai/unsloth)) na úkol strukturované analýzy textu písňových textů (alternativní název, shrnutí, hodnocení nálady) — dataset 200 textů od českých interpretů (Karel Kryl, Karel Plíhal, Ivan Mládek, Svěrák a Uhlíř).
 
-**Klíčová zjištění** (viz [shrnuti.txt](./3-gemma-finetune-mood-classifier/shrnuti.txt)):
+Klíčová zjištění (viz [shrnuti.txt](./3-gemma-finetune-mood-classifier/shrnuti.txt)):
+
 - Model se úspěšně naučil dodržovat požadovanou strukturu odpovědi
 - Na 100 trénovacích příkladech fine-tuned model nepřekonal výrazně baseline model — malý dataset limitoval zlepšení
-- Model měl tendenci k "bezpečnému středu" při hodnocení nálady (typický projev tréninku na malém vzorku dat)
+- Model měl tendenci k "bezpečnému středu" při hodnocení nálady
 - Pozorován posun k angličtině při vyšší teplotě generování
 
 ```
@@ -55,11 +53,12 @@ Fine-tuning modelu Gemma 3 (přes [unsloth](https://github.com/unslothai/unsloth
 ```
 
 ## Tech stack
-Python · PyTorch · fastai · Gradio · Hugging Face Spaces · unsloth · OpenAI API
+
+Python, PyTorch, fastai, Gradio, Hugging Face Spaces, unsloth, OpenAI API
 
 ## Autorství a kontext
 
-Skupinová zadání v rámci kurzu **PřF:M7DataSP – Praktikum z pokročilé datové vědy** (2025), přednášející [Mgr. Petr Šimeček, MSc., Ph.D.](https://is.muni.cz/auth/osoba/244334), na základě course repozitáře [simecek/dspracticum2024](https://github.com/simecek/dspracticum2024) a sdíleného týmového repozitáře [LuciaKajanova/dspracticum25_flowers_team](https://github.com/LuciaKajanova/dspracticum25_flowers_team).
+Skupinová zadání v rámci kurzu PřF:M7DataSP – Praktikum z pokročilé datové vědy (2025) na Masarykově univerzitě, na základě course repozitáře [simecek/dspracticum2024](https://github.com/simecek/dspracticum2024) a sdíleného týmového repozitáře [LuciaKajanova/dspracticum25_flowers_team](https://github.com/LuciaKajanova/dspracticum25_flowers_team).
 
 Spolupráce s Lucia Kajanová a Eva Kopřiva; byl jsem hlavním přispěvatelem na implementaci.
 
