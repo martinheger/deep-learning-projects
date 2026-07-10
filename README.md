@@ -60,7 +60,7 @@ Python, PyTorch, fastai, Gradio, Hugging Face Spaces, unsloth, OpenAI API
 
 Skupinová zadání v rámci kurzu PřF:M7DataSP – Praktikum z pokročilé datové vědy (2025) na Masarykově univerzitě, na základě course repozitáře [simecek/dspracticum2024](https://github.com/simecek/dspracticum2024) a sdíleného týmového repozitáře [LuciaKajanova/dspracticum25_flowers_team](https://github.com/LuciaKajanova/dspracticum25_flowers_team).
 
-Spolupráce s Lucia Kajanová a Eva Kopřiva; byl jsem hlavním přispěvatelem na implementaci.
+Spolupráce s Lucia Kajanová a Eva Kopřivová
 
 ## Licence
 
