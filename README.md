@@ -4,7 +4,7 @@ Tři praktické projekty z kurzu Deep Learning: obrazová klasifikace pomocí CN
 
 ## 1. CNN klasifikátor obrázků a živá appka
 
-[Vyzkoušet živé demo](DOPLŇ_ODKAZ_NA_TVŮJ_HUGGING_FACE_SPACE)
+[Vyzkoušet živé demo](https://huggingface.co/spaces/MartinH-01/Flowers)
 
 Konvoluční neuronová síť (fastai) klasifikující obrázky (květiny / Fashion-MNIST). Model je nasazený jako veřejně dostupná Gradio appka na Hugging Face Spaces — nahraješ obrázek, appka vrátí predikci s pravděpodobnostmi jednotlivých tříd.
 
