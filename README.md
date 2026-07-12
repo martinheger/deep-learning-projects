@@ -1,67 +1,69 @@
 # Deep Learning Projects
 
-Tři praktické projekty z kurzu Deep Learning: obrazová klasifikace pomocí CNN (s nasazenou live appkou), vlastní transformer natrénovaný na českých zákonech, a fine-tuning Gemma 3 na strukturovaný výstup.
+**[English](README.md) | [Česky](README_cz.md)**
 
-## 1. CNN klasifikátor obrázků a živá appka
+Three practical projects from a Deep Learning course: image classification using CNN (with a deployed live app), a custom transformer trained on Czech laws, and fine-tuning Gemma 3 for structured output.
 
-[Vyzkoušet živé demo](https://huggingface.co/spaces/MartinH-01/Flowers)
+## 1. CNN Image Classifier and Live App
 
-Konvoluční neuronová síť (fastai) klasifikující obrázky (květiny / Fashion-MNIST). Model je nasazený jako veřejně dostupná Gradio appka na Hugging Face Spaces — nahraješ obrázek, appka vrátí predikci s pravděpodobnostmi jednotlivých tříd.
+[Try the live demo](https://huggingface.co/spaces/MartinH-01/Flowers)
 
-- `app.py` — zdrojový kód Gradio appky (stejný kód, jaký běží na HF Spaces)
-- `notebooks/` — trénování a experimenty (Fashion-MNIST baseline, klasifikace květin, finální model appky)
+Convolutional neural network (fastai) classifying images (flowers / Fashion-MNIST). The model is deployed as a publicly available Gradio app on Hugging Face Spaces — upload an image, and the app returns a prediction with class probabilities.
 
-Model (`model_cleansplit.pkl`, ~50 MB) není součástí repa — appka běží nasazená přímo na HF Spaces, kde je model uložený.
+- `app.py` — source code of the Gradio app (same code running on HF Spaces)
+- `notebooks/` — training and experiments (Fashion-MNIST baseline, flower classification, final app model)
 
-## 2. Vlastní transformer — tokenizace a generování na českých zákonech
+The model (`model_cleansplit.pkl`, ~50 MB) is not included in the repo — the app runs directly on HF Spaces where the model is hosted.
 
-Implementace GPT-style transformeru (vycházející z [Karpathyho "Let's build GPT" tutoriálu](https://github.com/karpathy/ng-video-lecture)) natrénovaného na korpusu českých zákonů, s experimenty nad tokenizací a velikostí modelu.
+## 2. Custom Transformer — Tokenization and Generation on Czech Laws
 
-Klíčová zjištění (viz [shrnuti-vysledky.txt](./2-transformer-tokenization/shrnuti-vysledky.txt) pro plný rozbor):
+Implementation of a GPT-style transformer (based on [Karpathy's "Let's build GPT" tutorial](https://github.com/karpathy/ng-video-lecture)) trained on a corpus of Czech laws, including experiments with tokenization and model size.
 
-- Vyzkoušeny dvě úrovně tokenizace (jednoduchá vs. vylepšená), slovník přibližně 200k subword tokenů
-- Dosažené hodnoty: train loss približně 2.4, val loss približně 3.1 — kapacita jednoduchého transformeru byla na tomto datasetu prakticky vyčerpaná
-- Ukázky generovaného textu na prázdný vs. konkrétní prompt v [example-outputs/](./2-transformer-tokenization/example-outputs/) — model věrně napodobuje styl zákonů, i když obsahově "halucinuje"
+Key findings (see [shrnuti-vysledky.txt](./2-transformer-tokenization/shrnuti-vysledky.txt) for full analysis):
 
-```
+- Tested two levels of tokenization (simple vs. improved), vocabulary of approx. 200k subword tokens
+- Achieved metrics: train loss approx. 2.4, val loss approx. 3.1 — the capacity of the simple transformer was practically exhausted on this dataset
+- Examples of generated text for empty vs. specific prompts in [example-outputs/](./2-transformer-tokenization/example-outputs/) — the model accurately mimics the style of legal texts, even though the content is "hallucinated"
+
+```text
 2-transformer-tokenization/
-├── notebooks/            # tokenizace (2 varianty) + příprava datasetu ze zákonů
-├── example-outputs/      # ukázky generovaného textu
-├── merged_zakony.md      # zdrojový korpus (sloučené texty zákonů)
-└── shrnuti-vysledky.txt  # shrnutí experimentů a závěrů
+├── notebooks/            # tokenization (2 variants) + dataset preparation
+├── example-outputs/      # samples of generated text
+├── merged_zakony.md      # source corpus (merged legal texts)
+└── shrnuti-vysledky.txt  # summary of experiments and conclusions
 ```
 
-Notebook `SimpleTokenizationMergedZakony.ipynb` počítá s prostředím Google Colab (načítá data z `/content/`). Pro lokální spuštění je potřeba cestu upravit.
+The notebook `SimpleTokenizationMergedZakony.ipynb` assumes a Google Colab environment (loading data from `/content/`). To run locally, the path must be adjusted.
 
-## 3. Fine-tuning Gemma 3 — strukturovaná analýza textu
+## 3. Fine-tuning Gemma 3 — Structured Text Analysis
 
-Fine-tuning modelu Gemma 3 (přes [unsloth](https://github.com/unslothai/unsloth)) na úkol strukturované analýzy textu písňových textů (alternativní název, shrnutí, hodnocení nálady) — dataset 200 textů od českých interpretů (Karel Kryl, Karel Plíhal, Ivan Mládek, Svěrák a Uhlíř).
+Fine-tuning the Gemma 3 model (via [unsloth](https://github.com/unslothai/unsloth)) for structured text analysis of song lyrics (alternative title, summary, mood evaluation) — dataset of 200 lyrics by Czech artists (Karel Kryl, Karel Plíhal, Ivan Mládek, Svěrák & Uhlíř).
 
-Klíčová zjištění (viz [shrnuti.txt](./3-gemma-finetune-mood-classifier/shrnuti.txt)):
+Key findings (see [shrnuti.txt](./3-gemma-finetune-mood-classifier/shrnuti.txt)):
 
-- Model se úspěšně naučil dodržovat požadovanou strukturu odpovědi
-- Na 100 trénovacích příkladech fine-tuned model nepřekonal výrazně baseline model — malý dataset limitoval zlepšení
-- Model měl tendenci k "bezpečnému středu" při hodnocení nálady
-- Pozorován posun k angličtině při vyšší teplotě generování
+- The model successfully learned to follow the required output structure
+- On 100 training examples, the fine-tuned model did not significantly outperform the baseline model — the small dataset limited improvements
+- The model tended to default to a "safe middle" when evaluating mood
+- Observed a shift towards English at higher generation temperatures
 
-```
+```text
 3-gemma-finetune-mood-classifier/
 ├── gemma3_finetune_final.ipynb      # fine-tuning pipeline
-├── Vyuziti_GPT_api_dataset.ipynb    # příprava datasetu přes GPT API
-├── train_100.jsonl / test_99.jsonl  # trénovací a testovací data
-└── shrnuti.txt                      # shrnutí výsledků a pozorování
+├── Vyuziti_GPT_api_dataset.ipynb    # dataset preparation via GPT API
+├── train_100.jsonl / test_99.jsonl  # training and test data
+└── shrnuti.txt                      # summary of results and observations
 ```
 
-## Tech stack
+## Tech Stack
 
 Python, PyTorch, fastai, Gradio, Hugging Face Spaces, unsloth, OpenAI API
 
-## Autorství a kontext
+## Authorship and Context
 
-Skupinová zadání v rámci kurzu PřF:M7DataSP – Praktikum z pokročilé datové vědy (2025) na Masarykově univerzitě, na základě course repozitáře [simecek/dspracticum2024](https://github.com/simecek/dspracticum2024) a sdíleného týmového repozitáře [LuciaKajanova/dspracticum25_flowers_team](https://github.com/LuciaKajanova/dspracticum25_flowers_team).
+Group assignments for the course PřF:M7DataSP – Advanced Data Science Practicum (2025) at Masaryk University, based on the course repository [simecek/dspracticum2024](https://github.com/simecek/dspracticum2024) and the shared team repository [LuciaKajanova/dspracticum25_flowers_team](https://github.com/LuciaKajanova/dspracticum25_flowers_team).
 
-Spolupráce s Lucia Kajanová a Eva Kopřivová
+In collaboration with Lucia Kajanová and Eva Kopřivová.
 
-## Licence
+## License
 
-MIT — viz [LICENSE](./LICENSE)
+MIT — see [LICENSE](./LICENSE)
