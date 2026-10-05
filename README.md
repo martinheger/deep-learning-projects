@@ -8,7 +8,7 @@ Three practical projects from a Deep Learning course: image classification using
 
 [Try the live demo](https://huggingface.co/spaces/MartinH-01/Flowers)
 
-Convolutional neural network (fastai) classifying images (flowers / Fashion-MNIST). The model is deployed as a publicly available Gradio app on Hugging Face Spaces: upload an image, and the app returns a prediction with class probabilities.
+Convolutional neural network (fastai) classifying images (flowers). The model is deployed as a publicly available Gradio app on Hugging Face Spaces: upload an image, and the app returns a prediction with class probabilities.
 
 - `app.py` - source code of the Gradio app (same code running on HF Spaces)
 - `notebooks/` - training and experiments (Fashion-MNIST baseline, flower classification, final app model)
